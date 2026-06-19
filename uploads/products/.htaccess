@@ -1,0 +1,23 @@
+# Protect config.php from direct access
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Prevent PHP execution in uploads folder
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Remove index browsing
+    Options -Indexes
+</IfModule>
+
+# Hide PHP errors from users
+php_flag display_errors off
+php_flag log_errors on
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
